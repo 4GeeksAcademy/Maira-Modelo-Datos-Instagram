@@ -22,8 +22,10 @@ class User(db.Model):
             # do not serialize the password, its a security breach
         }
     
+    def __repr__(self):
+        return f'{self.email}'
+    
 
-''' (db.Model) implica una herencia '''
 class Characters(db.Model):
     __tablename__ = 'characters'
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -31,6 +33,9 @@ class Characters(db.Model):
     height: Mapped[int] = mapped_column(Integer)
     weigth: Mapped[int] = mapped_column(Integer)
     favorites_by_char: Mapped[list['FavCharacters']] = relationship(back_populates='people')
+
+    def __repr__(self):
+        return f'{self.name}'
 
 class FavCharacters(db.Model):
     __tablename__ = 'favorite_characters'
@@ -48,6 +53,9 @@ class Planets(db.Model):
     orbital_period: Mapped[int] = mapped_column(Integer)
     favorites_by_plan: Mapped[list['FavPlanets']] = relationship(back_populates='astros')
 
+    def __repr__(self):
+        return f'{self.name}'
+
 class FavPlanets(db.Model):
     __tablename__ = 'favorite_planets'
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -63,6 +71,9 @@ class Starships(db.Model):
     passengers: Mapped[int] = mapped_column(Integer)
     cargo_capacity: Mapped[int] = mapped_column(Integer)
     favorites_by_star: Mapped[list['FavStarships']] = relationship(back_populates='naves')
+
+    def __repr__(self):
+        return f'{self.name}'
 
 class FavStarships(db.Model):
     __tablename__ = 'favorite_starships'
